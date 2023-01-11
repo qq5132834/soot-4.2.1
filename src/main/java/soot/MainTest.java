@@ -11,20 +11,23 @@ public class MainTest {
 		
 	}
 	
+	private static void doMain(String[] args){
+		Main.main(args);
+	}
 	
 	/***
 	 * 输出soot基本信息
 	 */
 	private static void sootInfo(){
-		Main.main(new String[]{});
+		doMain(new String[]{});
 	}
 	
 	/***
 	 * 两种方式输出help信息
 	 */
 	private static void sootHelpCmd(){
-		Main.main(new String[]{"-h"});
-		Main.main(new String[]{"-help"});
+		doMain(new String[]{"-h"});
+		doMain(new String[]{"-help"});
 	}
 
 }
