@@ -41,7 +41,10 @@ public class MainTest {
 
 	/***
 	 * 执行命令：
-	 * java -cp sootclasses-trunk-jar-with-dependencies-4.1.0.jar soot.Main -cp . -pp -process-dir c:/Users/51328/Desktop/soot/HelloWorld -f J
+	 * java -cp sootclasses-trunk-jar-with-dependencies-4.1.0.jar soot.Main -cp . -pp -process-dir ./sootOutput/HelloWorld -f J
+	 * 
+	 * 执行./sootOutput/HelloWorld中的 HelloWorld.class文件
+	 * 结果默认保存在./sootOutput 目录中
 	 * 
 	 * -cp .：soot有自己的classpath且默认classpath为空，所以使用的时候需要添加一下当前路径
 	 * -pp：soot的工作需要类型信息、类的完整层次结构，所以需要java.lang.Object，使用该参数可以自动包含所需的jar文件
