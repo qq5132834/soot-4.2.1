@@ -5,7 +5,7 @@ import soot.tools.CFGViewer;
 public class MainTest {
 	
 	/***
-	 * @param args
+	 * 参考文档：https://m.isolves.com/e/wap/show.php?classid=49&id=61106&style=0&bclassid=3&cid=34&cpage=2
 	 */
 	public static void main(String[] args) {
 		
