@@ -1,5 +1,7 @@
 package soot;
 
+import soot.tools.CFGViewer;
+
 public class MainTest {
 	
 	/***
@@ -11,7 +13,8 @@ public class MainTest {
 		
 //		sootInfo();
 //		sootHelpCmd();
-		sootClass();
+//		sootClass();
+		sootCFG();
 	}
 	
 	private static void doMain(String[] args){
@@ -53,7 +56,23 @@ public class MainTest {
 	 * 默认解析class文件，也可以用-src-prec解析指定类型
 	 */
 	private static void sootClass(){
-		String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "c:/Users/51328/Desktop/soot/HelloWorld", "-f", "J"};
+		String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/HelloWorld", "-f", "J"};
 		doMain(args);
 	}
+	
+	
+	/***
+	 * 对三地址码（3 address code）以CFG图dot格式输出
+	 * 
+	 * 执行命令：java -cp sootclasses-trunk-jar-with-dependencies-4.1.0.jar soot.tools.CFGViewer -cp . -pp -process-dir ./sootOutput/
+	 * 
+	 * 输出
+	 */
+	private static void sootCFG(){
+		String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/"};
+		CFGViewer.main(args);
+	}
+	
+	
+	
 }
