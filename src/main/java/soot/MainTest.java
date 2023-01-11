@@ -5,7 +5,17 @@ import soot.tools.CFGViewer;
 public class MainTest {
 	
 	/***
-	 * 参考文档：https://m.isolves.com/e/wap/show.php?classid=49&id=61106&style=0&bclassid=3&cid=34&cpage=2
+	 * soot提供的分析功能:
+	 * 	调用图构造
+	 * 	指针分析
+	 * 	Def/use chains
+	 * 	模块驱动的程序内数据流分析
+	 * 	结合FlowDroid的污染分析
+	 * 
+	 * 参考文档：
+	 * 	https://m.isolves.com/e/wap/show.php?classid=49&id=61106&style=0&bclassid=3&cid=34&cpage=2
+	 * 	https://www.cnblogs.com/xine/p/14511818.html
+	 * 
 	 */
 	public static void main(String[] args) {
 		
@@ -13,8 +23,8 @@ public class MainTest {
 		
 //		sootInfo();
 //		sootHelpCmd();
-//		sootClass();
-		sootCFG();
+		sootClass();
+//		sootCFG();
 	}
 	
 	private static void doMain(String[] args){
@@ -56,8 +66,12 @@ public class MainTest {
 	 * 默认解析class文件，也可以用-src-prec解析指定类型
 	 */
 	private static void sootClass(){
+		//默认解析class文件
 		String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/HelloWorld", "-f", "J"};
-		doMain(args);
+		//指定解析java文件
+		String[] args1 = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/HelloWorld", "-src-prec", "java", "-f", "J"};
+		
+		doMain(args1);
 	}
 	
 	
