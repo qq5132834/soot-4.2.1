@@ -415,6 +415,16 @@
                         </manifest>
                     </archive>
                 </configuration>
+                <executions>
+                   <execution>
+                       <id>make-assembly</id>
+                       <!-- bind to the packaging phase -->
+                       <phase>package</phase>
+                       <goals>
+                           <goal>single</goal>
+                       </goals>
+                   </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -683,6 +693,7 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!-- 
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
@@ -696,6 +707,7 @@
                             </execution>
                         </executions>
                     </plugin>
+                     -->
                 </plugins>
             </build>
         </profile>
