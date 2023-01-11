@@ -24,6 +24,7 @@ public class MainTest {
 //		sootInfo();
 //		sootHelpCmd();
 		sootClass();
+		sootJava();
 //		sootCFG();
 	}
 	
@@ -68,10 +69,13 @@ public class MainTest {
 	private static void sootClass(){
 		//默认解析class文件
 		String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/HelloWorld", "-f", "J"};
-		//指定解析java文件
-		String[] args1 = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/HelloWorld", "-src-prec", "java", "-f", "J"};
-		
-		doMain(args1);
+		doMain(args);
+	}
+	
+	private static void sootJava(){
+		//指定解析java文件		
+		String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/HelloWorld", "-src-prec", "java", "-f", "J"};		
+		doMain(args);
 	}
 	
 	
