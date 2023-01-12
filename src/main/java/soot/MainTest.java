@@ -1,6 +1,7 @@
 package soot;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import soot.tools.CFGViewer;
 import soot.options.*;
@@ -21,15 +22,14 @@ public class MainTest {
 	 * 
 	 */
 	public static void main(String[] args) {
-		
 		System.out.println("hello soot.");
-		
 //		sootInfo();
 //		sootHelpCmd();
 //		sootClass();
 //		sootJava();
 //		sootCFG();
-		sootProcess();
+//		sootProcess();
+		sootProcess1();
 	}
 	
 	private static void doMain(String[] args){
@@ -93,10 +93,7 @@ public class MainTest {
 		CFGViewer.main(args);
 	}
 	
-	/***
-	 * 全过程分析
-	 */
-	private static void sootProcess(){
+	private static void init(){
 		soot.G.reset();//re-initializes all of soot
         Options.v().set_src_prec(Options.src_prec_class);//设置处理文件的类型,当然默认也是class文件
         Options.v().set_process_dir(Arrays.asList("./sootOutput/HelloWorld"));//处理路径
@@ -104,10 +101,59 @@ public class MainTest {
         Options.v().set_prepend_classpath(true);//对应命令行的 -pp
         Options.v().set_output_format(Options.output_format_jimple);//输出jimple文件
         Scene.v().loadNecessaryClasses();//加载所有需要的类
-        
-        PackManager.v().runPacks();//运行(要有，不然下面没有输出...坑了好久，加上后运行好慢)
-        PackManager.v().writeOutput();//输出jimple到sootOutput目录中
-		
 	}
 	
+	/***
+	 * 全过程分析
+	 */
+	private static void sootProcess(){
+        init();
+        PackManager.v().runPacks();//运行(要有，不然下面没有输出...坑了好久，加上后运行好慢)
+        PackManager.v().writeOutput();//输出jimple到sootOutput目录中
+	}
+	
+	public static void sootProcess1(){
+		init();
+        PackManager.v().getPack("jtp").add(new Transform("jtp.TT", new TransformerTest()));
+        for (SootClass appClazz : Scene.v().getApplicationClasses()) {
+            for (SootMethod method : appClazz.getMethods()) {
+                Body body = method.retrieveActiveBody();
+                PackManager.v().getPack("jtp").apply(body);
+            }
+        }//只分析应用类，运行速度明显快了
+    }
+	
+	public static void sootProcess2(){
+		/***
+		https://m.isolves.com/e/wap/show.php?classid=49&id=61106&style=0&bclassid=3&cid=34&cpage=2
+		flow analysis framework
+		soot自己有个流分析框架，我们要实现的主要流程：
+			
+			1.继承自*FlowAnalysis，backword就是BackwardFlowAnalysis<Unit, FlowSet>，forward就是ForwardFlowAnalysis<Unit, FlowSet>
+			2.一些抽象的实现：
+			3.值域的抽象（FlowSet）：Soot里有一些默认的，如ArrayPackedSet（其实就是课上提到的bitvector），我们也可以自己实现
+			4.copy()：其实就是把IN的值给OUT或者OUT给IN （取决于forward或backword）
+			5.
+			6.merge()：不难理解，就是Transform Function干的事（可以回忆下那两行算法）
+			7.flowThrough()：是流分析的核心，brain of analysis处理式子（等式右边是表达式）处理从IN到OUT或者OUT到IN到底发生了什么
+			8.protected void flowThrough(FlowSet src, Unit u, FlowSet dest)
+			9.我们还需要补充下Soot中Box的概念
+			10. 
+			11.用上面(Unit)u的方法即可得到Box了，如u.getUseBoxes()，u.getDefBoxes()，那么也就不难理解Unit是啥了，上图中的s其实也是一个Unit
+			12.我们还要再补充一点点，soot.Local：代表了Jimple中的本地变量
+			13.初始化IN和OUT（边界和每个BB的值）：newInitialFlow()，entryInitialFlow()
+			14.实现构造函数，且必须要调用doAnalysis
+			15.super(graph); super.doAnalysis()；
+			16.查看结果：（就在本类里测试，当然也可以将我们这个类加入jtp当中）
+			17.OurAnalysis analysis = new OurAnalysis(graph); analysis.getFlowBefore(s);//Unit s analysis.getFlowAfter(s);
+		    把这些基础的用法都了解，才能在后面更加关注静态分析核心的算法部分（加油）
+		 */
+	}
+	
+	private static class TransformerTest extends BodyTransformer {
+	    @Override
+	    protected void internalTransform(Body body, String s, Map<String, String> map) {
+	        System.out.println(body.getMethod().getName());//输出下程序方法的名字
+	    }
+	}
 }
