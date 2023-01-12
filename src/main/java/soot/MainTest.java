@@ -1,6 +1,9 @@
 package soot;
 
+import java.util.Arrays;
+
 import soot.tools.CFGViewer;
+import soot.options.*;
 
 public class MainTest {
 	
@@ -23,9 +26,10 @@ public class MainTest {
 		
 //		sootInfo();
 //		sootHelpCmd();
-		sootClass();
-		sootJava();
+//		sootClass();
+//		sootJava();
 //		sootCFG();
+		sootProcess();
 	}
 	
 	private static void doMain(String[] args){
@@ -52,7 +56,6 @@ public class MainTest {
 		doMain(new String[]{"-help"});
 	}
 	
-
 	/***
 	 * 执行命令：
 	 * java -cp sootclasses-trunk-jar-with-dependencies-4.1.0.jar soot.Main -cp . -pp -process-dir ./sootOutput/HelloWorld -f J
@@ -78,7 +81,6 @@ public class MainTest {
 		doMain(args);
 	}
 	
-	
 	/***
 	 * 对三地址码（3 address code）以CFG图dot格式输出
 	 * 
@@ -91,6 +93,21 @@ public class MainTest {
 		CFGViewer.main(args);
 	}
 	
-	
+	/***
+	 * 全过程分析
+	 */
+	private static void sootProcess(){
+		soot.G.reset();//re-initializes all of soot
+        Options.v().set_src_prec(Options.src_prec_class);//设置处理文件的类型,当然默认也是class文件
+        Options.v().set_process_dir(Arrays.asList("./sootOutput/HelloWorld"));//处理路径
+        Options.v().set_whole_program(true);//开启全局模式
+        Options.v().set_prepend_classpath(true);//对应命令行的 -pp
+        Options.v().set_output_format(Options.output_format_jimple);//输出jimple文件
+        Scene.v().loadNecessaryClasses();//加载所有需要的类
+        
+        PackManager.v().runPacks();//运行(要有，不然下面没有输出...坑了好久，加上后运行好慢)
+        PackManager.v().writeOutput();//输出jimple到sootOutput目录中
+		
+	}
 	
 }
