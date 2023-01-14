@@ -9,6 +9,8 @@ import java.io.*;
 import java.util.*;
 
 /**
+ * 参考： https://blog.csdn.net/beswkwangbo/article/details/41242889?spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-9-41242889-blog-41247429.pc_relevant_multi_platform_whitelistv4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-9-41242889-blog-41247429.pc_relevant_multi_platform_whitelistv4&utm_relevant_index=16
+ *
  * 使用Soot从头创建类文件的示例.
  * “createclass”示例使用Soot创建HelloWorld类文件。
  * 其进展如下：
