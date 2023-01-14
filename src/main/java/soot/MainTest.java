@@ -163,7 +163,6 @@ public class MainTest {
 	    }
 	}
 	
-	
 	private static void sootScene(){
 		Scene.v().setSootClassPath("C:/Program Files/Java/jdk1.8.0_271/jre/lib/rt.jar");//rt.jar的路径 
         Scene.v().extendSootClassPath("./sootOutput/Helloworld/");//classpath的路径
