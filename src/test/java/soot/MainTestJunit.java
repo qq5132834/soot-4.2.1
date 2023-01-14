@@ -88,15 +88,35 @@ public class MainTestJunit {
 
         }
 
-        String fileName = SourceLocator.v().getFileNameFor(sClass, Options.output_format_class);
-        OutputStream streamOut = new JasminOutputStream(
-                new FileOutputStream(fileName));
-        PrintWriter writerOut = new PrintWriter(
-                new OutputStreamWriter(streamOut));
-        JasminClass jasminClass = new soot.jimple.JasminClass(sClass);
-        jasminClass.print(writerOut);
-        writerOut.flush();
-        streamOut.close();
+
+        {
+            /***
+             * 生成.jimple IR文件
+             */
+            String fileName = SourceLocator.v().getFileNameFor(sClass, Options.output_format_jimple);
+            OutputStream streamOut = new FileOutputStream(fileName);
+            PrintWriter writerOut = new PrintWriter(
+                    new OutputStreamWriter(streamOut));
+            Printer.v().printTo(sClass, writerOut);
+            writerOut.flush();
+            streamOut.close();
+        }
+
+
+        {
+            /***
+             * 生成.class文件
+             */
+            String fileName = SourceLocator.v().getFileNameFor(sClass, Options.output_format_class);
+            OutputStream streamOut = new JasminOutputStream(
+                    new FileOutputStream(fileName));
+            PrintWriter writerOut = new PrintWriter(
+                    new OutputStreamWriter(streamOut));
+            JasminClass jasminClass = new soot.jimple.JasminClass(sClass);
+            jasminClass.print(writerOut);
+            writerOut.flush();
+            streamOut.close();
+        }
     }
 
 }
