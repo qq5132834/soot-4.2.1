@@ -8,9 +8,10 @@ import soot.util.*;
 import java.io.*;
 import java.util.*;
 
-/** Example of using Soot to create a classfile from scratch.
- * The 'createclass' example creates a HelloWorld class file using Soot.
- * It proceeds as follows:
+/**
+ * 使用Soot从头创建类文件的示例.
+ * “createclass”示例使用Soot创建HelloWorld类文件。
+ * 其进展如下：
  * - Create a SootClass <code>HelloWorld</code> extending java.lang.Object.
  * - Create a 'main' method and add it to the class.
  * - Create an empty JimpleBody and add it to the 'main' method.
@@ -27,7 +28,7 @@ public class MainTestJunit {
      * 将类编译成class文件
      */
     @Test
-    public void mainTest() throws FileNotFoundException, IOException {
+    public void createclass() throws FileNotFoundException, IOException {
         SootClass sClass;
         SootMethod method;
 
