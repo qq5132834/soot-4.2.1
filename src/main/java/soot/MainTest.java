@@ -1,9 +1,11 @@
 package soot;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import soot.tools.CFGViewer;
+import soot.util.Chain;
 import soot.options.*;
 
 public class MainTest {
@@ -29,7 +31,9 @@ public class MainTest {
 //		sootJava();
 //		sootCFG();
 //		sootProcess();
-		sootProcess1();
+//		sootProcess1();
+		
+		sootScene();
 	}
 	
 	private static void doMain(String[] args){
@@ -100,7 +104,9 @@ public class MainTest {
         Options.v().set_whole_program(true);//开启全局模式
         Options.v().set_prepend_classpath(true);//对应命令行的 -pp
         Options.v().set_output_format(Options.output_format_jimple);//输出jimple文件
+        Options options = Options.v();
         Scene.v().loadNecessaryClasses();//加载所有需要的类
+       
 	}
 	
 	/***
@@ -155,5 +161,28 @@ public class MainTest {
 	    protected void internalTransform(Body body, String s, Map<String, String> map) {
 	        System.out.println(body.getMethod().getName());//输出下程序方法的名字
 	    }
+	}
+	
+	
+	private static void sootScene(){
+		Scene.v().setSootClassPath("C:/Program Files/Java/jdk1.8.0_271/jre/lib/rt.jar");//rt.jar的路径 
+        Scene.v().extendSootClassPath("./sootOutput/Helloworld/");//classpath的路径
+        SootClass sClass = Scene.v().loadClassAndSupport("Helloworld");//.class
+        Scene.v().loadNecessaryClasses();//加载必须的类
+        List<SootMethod> sMethods = sClass.getMethods();
+        Chain<SootField> sFields = sClass.getFields();
+        System.out.println("getClasses()");
+//        for(SootClass c : Scene.v().getClasses()){
+//          System.out.println(c);
+//        }
+        for(SootMethod m : sMethods){
+          System.out.println(m);
+        }
+//        System.out.println("getDeclaration()");
+//        System.out.println(sFields.size());
+        for(SootField f : sFields){
+          System.out.println(f.getDeclaration());
+        }
+        System.out.println("In the end.");
 	}
 }
