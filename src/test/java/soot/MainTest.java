@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class MainTest {
 
-    private static void doMain(String[] args){
+    private void doMain(String[] args){
         Main.main(args);
     }
 
@@ -34,7 +34,7 @@ public class MainTest {
      * 输出soot基本信息
      */
     @Test
-    public static void sootInfo(){
+    public void sootInfo(){
         doMain(new String[]{});
     }
 
@@ -45,7 +45,7 @@ public class MainTest {
      * 等同命令行： java soot.Main --help
      */
     @Test
-    public static void sootHelpCmd(){
+    public void sootHelpCmd(){
         doMain(new String[]{"-h"});
         doMain(new String[]{"-help"});
     }
@@ -64,14 +64,14 @@ public class MainTest {
      * 默认解析class文件，也可以用-src-prec解析指定类型
      */
     @Test
-    public static void sootClass(){
+    public void sootClass(){
         //默认解析class文件
         String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/HelloWorld", "-f", "J"};
         doMain(args);
     }
 
     @Test
-    public static void sootJava(){
+    public void sootJava(){
         //指定解析java文件
         String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/HelloWorld", "-src-prec", "java", "-f", "J"};
         doMain(args);
@@ -85,12 +85,12 @@ public class MainTest {
      * 输出
      */
     @Test
-    public static void sootCFG(){
+    public void sootCFG(){
         String[] args = new String[]{"-cp", ".", "-pp", "-process-dir", "./sootOutput/"};
         CFGViewer.main(args);
     }
 
-    private static void init(){
+    private void init(){
         soot.G.reset();//re-initializes all of soot
         Options.v().set_src_prec(Options.src_prec_class);//设置处理文件的类型,当然默认也是class文件
         Options.v().set_process_dir(Arrays.asList("./sootOutput/HelloWorld"));//处理路径
@@ -106,14 +106,14 @@ public class MainTest {
      * 全过程分析
      */
     @Test
-    public static void sootProcess(){
+    public void sootProcess(){
         init();
         PackManager.v().runPacks();//运行(要有，不然下面没有输出...坑了好久，加上后运行好慢)
         PackManager.v().writeOutput();//输出jimple到sootOutput目录中
     }
 
     @Test
-    public static void sootProcess1(){
+    public void sootProcess1(){
         init();
         PackManager.v().getPack("jtp").add(new Transform("jtp.TT", new TransformerTest()));
         for (SootClass appClazz : Scene.v().getApplicationClasses()) {
@@ -125,7 +125,7 @@ public class MainTest {
     }
 
     @Test
-    public static void sootProcess2(){
+    public void sootProcess2(){
         /***
          https://m.isolves.com/e/wap/show.php?classid=49&id=61106&style=0&bclassid=3&cid=34&cpage=2
          flow analysis framework
@@ -152,7 +152,7 @@ public class MainTest {
          */
     }
 
-    private static class TransformerTest extends BodyTransformer {
+    private class TransformerTest extends BodyTransformer {
         @Override
         protected void internalTransform(Body body, String s, Map<String, String> map) {
             System.out.println(body.getMethod().getName());//输出下程序方法的名字
@@ -160,7 +160,7 @@ public class MainTest {
     }
 
     @Test
-    public static void sootScene(){
+    public void sootScene(){
         Scene.v().setSootClassPath("C:/Program Files/Java/jdk1.8.0_271/jre/lib/rt.jar");//rt.jar的路径
         Scene.v().extendSootClassPath("./sootOutput/Helloworld/");//classpath的路径
         SootClass sClass = Scene.v().loadClassAndSupport("Helloworld");//.class
