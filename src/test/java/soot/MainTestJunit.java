@@ -36,28 +36,43 @@ public class MainTestJunit {
 
         // Resolve Dependencies
         Scene.v().loadClassAndSupport("java.lang.Object");
+        // Scene是包含全部 SootClass 的容器，Scene.v() 得到一个单例模式的 Scene。
+        // 上面一行会load java.lang.Object 类，并且为之创建相应的 SootClass，以及其配套的 SootMethods 和 SootFields。
+        // loadClassAndSupport方法也会自动将 Object 所引用的类全部加载。
         Scene.v().loadClassAndSupport("java.lang.System");
 
         // Declare 'public class HelloWorld'
+        // 创建 HelloWorld_HL 的 SootClass，
         sClass = new SootClass(className, Modifier.PUBLIC);
 
         // 'extends Object'
+        //并且设置他的父类是 Object，
         sClass.setSuperclass(Scene.v().getSootClass("java.lang.Object"));
-        Scene.v().addClass(sClass);
+        Scene.v().addClass(sClass); //然后把它添加到 Scene 中
 
         // Create the method, public static void main(String[])
+        // SootClass 添加 method，为之设置参数类型、返回值以及Modifier。
         method = new SootMethod("main",
                 Arrays.asList(new Type[] {ArrayType.v(RefType.v("java.lang.String"), 1)}),
                 VoidType.v(), Modifier.PUBLIC | Modifier.STATIC);
 
-        sClass.addMethod(method);
+        sClass.addMethod(method); //把 SootMethod 添加到 SootClass中
 
         // Create the method body
         {
-            // create empty body
-            JimpleBody body = Jimple.v().newBody(method);
+            // method 添加代码
+            // create empty bodySourceLocator
+            JimpleBody body = Jimple.v().newBody(method);  // 不同的 Body 提供不同的中间表示，例如 JimpleBody，BafBody，GrimpBody
 
-            method.setActiveBody(body);
+            /***
+             * Body 包含 3 个重要的特点： chains of locals, traps, units. chain 类似链表便于插入删除元素，
+             * locals就是 body 的local variables.
+             * unit 是 statement，
+             * trap 指明哪个 unit catch 哪个异常。
+             *
+             * unit 在 Jimple 表示 statement ，在 Baf 中则表示 instruction。
+             */
+            method.setActiveBody(body); //调用 Jimple 的单例对象获得该 method 的 JimpleBody，然后设置成活跃的
             Chain units = body.getUnits();
             Local arg, tmpRef;
 
