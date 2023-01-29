@@ -82,10 +82,10 @@ public class Printer {
   }
 
   public void printTo(SootClass cl, PrintWriter out) {
-    // add jimple line number tags
+    // add jimple line number tags   //添加jimple行号标记
     setJimpleLnNum(1);
 
-    // Print class name + modifiers
+    // Print class name + modifiers  //打印类名+修饰符
     {
       StringTokenizer st = new StringTokenizer(Modifier.toString(cl.getModifiers()));
       while (st.hasMoreTokens()) {
@@ -106,14 +106,14 @@ public class Printer {
       out.print(classPrefix + " " + printSignature(cl) + "");
     }
 
-    // Print extension
+    // Print extension //打印继承
     {
       if (cl.hasSuperclass()) {
         out.print(" extends " + printSignature(cl.getSuperclass()) + "");
       }
     }
 
-    // Print interfaces
+    // Print interfaces //打印接口
     {
       Iterator<SootClass> interfaceIt = cl.getInterfaces().iterator();
 
@@ -147,7 +147,7 @@ public class Printer {
       }
     }
 
-    // Print fields
+    // Print fields // 打印字段
     {
       Iterator<SootField> fieldIt = cl.getFields().iterator();
 
@@ -178,7 +178,7 @@ public class Printer {
       }
     }
 
-    // Print methods
+    // Print methods // 打印方法
     {
       Iterator<SootMethod> methodIt = cl.methodIterator();
 
