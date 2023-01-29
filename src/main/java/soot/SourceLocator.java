@@ -517,38 +517,56 @@ public class SourceLocator {
   }
 
   public String getExtensionFor(int rep) {
+    String suffix = "";
     switch (rep) {
       case Options.output_format_baf:
-        return ".baf";
+        suffix = ".baf";
+        break;
       case Options.output_format_b:
-        return ".b";
+        suffix = ".b";
+        break;
       case Options.output_format_jimple:
-        return ".jimple";
+        suffix = ".jimple";
+        break;
       case Options.output_format_jimp:
-        return ".jimp";
+        suffix = ".jimp";
+        break;
       case Options.output_format_shimple:
-        return ".shimple";
+        suffix = ".shimple";
+        break;
       case Options.output_format_shimp:
-        return ".shimp";
+        suffix = ".shimp";
+        break;
       case Options.output_format_grimp:
-        return ".grimp";
+        suffix = ".grimp";
+        break;
       case Options.output_format_grimple:
-        return ".grimple";
+        suffix = ".grimple";
+        break;
       case Options.output_format_class:
-        return ".class";
+        suffix = ".class";
+        break;
       case Options.output_format_dava:
-        return ".java";
+        suffix = ".java";
+        break;
       case Options.output_format_jasmin:
-        return ".jasmin";
+        suffix = ".jasmin";
+        break;
       case Options.output_format_xml:
-        return ".xml";
+        suffix = ".xml";
+        break;
       case Options.output_format_template:
-        return ".java";
+        suffix = ".java";
+        break;
       case Options.output_format_asm:
-        return ".asm";
-      default:
+        suffix = ".asm";
+        break;
+      default: {
         throw new RuntimeException();
+      }
     }
+    System.out.println("SourceLocator.getExtensionFor.rep:" + rep + ",文件后缀:" + suffix);
+    return suffix;
   }
 
   /**
