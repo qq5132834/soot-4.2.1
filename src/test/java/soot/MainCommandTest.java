@@ -22,7 +22,7 @@ import java.util.Map;
  * 	https://www.cnblogs.com/xine/p/14511818.html
  *
  */
-public class MainTest {
+public class MainCommandTest {
 
     private void doMain(String[] args){
         Main.main(args);
