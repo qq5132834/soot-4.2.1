@@ -21,7 +21,7 @@ import java.util.*;
  * - Write the result out to a class file.
  */
 
-public class MainTestJunit {
+public class Jimple2ClassTest {
 
     //类名称
     private final static String className = "HelloWorld_HL";
