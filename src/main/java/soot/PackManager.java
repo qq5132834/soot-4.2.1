@@ -696,7 +696,8 @@ public class PackManager {
 
     while (classes.hasNext()) {
       final SootClass c = classes.next();
-      executor.execute(() -> writeClass(c));
+//      executor.execute(() -> writeClass(c)); //改线程池执行为单线程执行
+      this.writeClass(c);
     }
 
     // Wait till all classes have been written
@@ -1127,6 +1128,7 @@ public class PackManager {
       }
       writerOut = new PrintWriter(new OutputStreamWriter(streamOut));
       logger.debug("Writing to " + fileName);
+      System.out.println("写入:" + fileName);
     } catch (IOException e) {
       throw new CompilationDeathException("Cannot output file " + fileName, e);
     }
