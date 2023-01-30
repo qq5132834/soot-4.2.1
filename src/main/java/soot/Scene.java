@@ -1765,6 +1765,7 @@ public class Scene {
   /**
    * Load the set of classes that soot needs, including those specified on the command-line. This is the standard way of
    * initialising the list of classes soot should use.
+   * 加载soot需要的一组类，包括命令行中指定的。这是初始化soot应该使用的类列表的标准方法。
    */
   public void loadNecessaryClasses() {
     loadBasicClasses();
