@@ -1782,6 +1782,7 @@ public class Scene {
     } else {
       for (final String path : Options.v().process_dir()) {
         for (String cl : SourceLocator.v().getClassesUnder(path)) {
+          System.out.println("处理的cl:" + cl);
           SootClass theClass = loadClassAndSupport(cl);
           if (!theClass.isPhantom) {
             theClass.setApplicationClass();
