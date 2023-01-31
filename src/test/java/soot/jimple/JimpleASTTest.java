@@ -7,6 +7,7 @@ import soot.jimple.parser.analysis.DepthFirstAdapter;
 import soot.jimple.parser.lexer.Lexer;
 import soot.jimple.parser.lexer.LexerException;
 import soot.jimple.parser.node.AVirtualNonstaticInvoke;
+import soot.jimple.parser.node.PFile;
 import soot.jimple.parser.node.Start;
 import soot.jimple.parser.parser.Parser;
 import soot.jimple.parser.parser.ParserException;
@@ -31,7 +32,7 @@ public class JimpleASTTest {
         Lexer lexer = new Lexer (new PushbackReader(new FileReader(jimpleFile), 1024));
         Parser parser = new Parser(lexer);
         Start ast = parser.parse();
-
+        //TODO ast中可以遍历全部node节点
         MyInterpreter myInterpreter = new MyInterpreter();
         ast.apply(myInterpreter);
     }
