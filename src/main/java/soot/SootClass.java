@@ -70,7 +70,7 @@ import soot.validation.ValidationException;
 public class SootClass extends AbstractHost implements Numberable {
   private static final Logger logger = LoggerFactory.getLogger(SootClass.class);
   protected String name, shortName, fixedShortName, packageName, fixedPackageName;
-  protected int modifiers;
+  protected int modifiers;  //类的修饰符，如public、private、protected、abstract、interface等等，从Modifier.java中获取
   protected Chain<SootField> fields;
   protected SmallNumberedMap<SootMethod> subSigToMethods;
   // methodList is just for keeping the methods in a consistent order. It
