@@ -2,6 +2,7 @@ package soot.jimple;
 
 import org.junit.Test;
 import soot.SootClass;
+import soot.SootMethod;
 import soot.jimple.parser.JimpleAST;
 import soot.jimple.parser.analysis.DepthFirstAdapter;
 import soot.jimple.parser.lexer.Lexer;
@@ -13,6 +14,7 @@ import soot.jimple.parser.parser.Parser;
 import soot.jimple.parser.parser.ParserException;
 
 import java.io.*;
+import java.util.Iterator;
 
 public class JimpleASTTest {
 
@@ -22,8 +24,19 @@ public class JimpleASTTest {
     public void jimpleASTTest() throws ParserException, IOException, LexerException {
         InputStream aJIS = new FileInputStream(new File(jimpleFile));
         JimpleAST jimpleAST = new JimpleAST(aJIS);
+
+        //TODO 将jimple文件转SootClass
         SootClass sc = new SootClass("HelloWorld");
+        sc.setResolvingLevel(1);
         jimpleAST.getSkeleton(sc);
+        System.out.println(sc.toString());
+
+        JimpleMethodSource mtdSrc = new JimpleMethodSource(jimpleAST);
+        for (Iterator<SootMethod> mtdIt = sc.methodIterator(); mtdIt.hasNext();) {
+            SootMethod sm = mtdIt.next();
+            sm.setSource(mtdSrc);
+        }
+
     }
 
     @Test
