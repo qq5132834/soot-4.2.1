@@ -657,7 +657,8 @@ public class PackManager {
 
     while (classes.hasNext()) {
       final SootClass c = classes.next();
-      executor.execute(() -> runBodyPacks(c));
+//      executor.execute(() -> runBodyPacks(c));
+      this.runBodyPacks(c); //改并行为串行
     }
 
     // Wait till all packs have been executed
