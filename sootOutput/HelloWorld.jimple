@@ -15,8 +15,8 @@ public class HelloWorld extends java.lang.Object
     public static void main(java.lang.String[])
     {
         java.io.PrintStream $r0, $r2;
-        int i0, i1, i2;
         java.lang.StringBuilder $r1, $r3, $r4, $r5, $r6, $r7, $r8;
+        int $i0, i1, i2;
         java.lang.String $r9;
         java.lang.String[] r10;
 
@@ -32,8 +32,6 @@ public class HelloWorld extends java.lang.Object
      label2:
         if i2 > i1 goto label3;
 
-        i0 = i1 * i2;
-
         $r2 = <java.lang.System: java.io.PrintStream out>;
 
         $r1 = new java.lang.StringBuilder;
@@ -48,7 +46,9 @@ public class HelloWorld extends java.lang.Object
 
         $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("=");
 
-        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+        $i0 = i1 * i2;
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
 
         $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
 
