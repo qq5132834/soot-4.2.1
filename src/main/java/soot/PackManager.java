@@ -1274,14 +1274,15 @@ public class PackManager {
       while (methodIt.hasNext()) {
         final SootMethod m = methodIt.next();
         if (m.isConcrete()) {
-          executor.execute(new Runnable() {
-
-            @Override
-            public void run() {
-              m.retrieveActiveBody();
-            }
-
-          });
+//          executor.execute(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//              m.retrieveActiveBody();
+//            }
+//
+//          });
+          m.retrieveActiveBody(); //修改线程池处理为串行执行
         }
       }
     }
